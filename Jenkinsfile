@@ -9,29 +9,14 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/Yashaswiiii8/MyMavenSeleniumApp01.git'
+                git branch: 'main', url: 'https://github.com/Yashaswiiii8/MyMavenSeleniumApp01.git'
             }
         }
 
-        stage('Build') {
+        stage('Run Selenium') {
             steps {
-                sh 'mvn clean compile'
+                sh 'mvn clean compile exec:java -Dexec.mainClass="com.example.App"'
             }
-        }
-
-        stage('Test (Run Selenium)') {
-            steps {
-                sh 'mvn exec:java -Dexec.mainClass="com.example.App"'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Selenium tests executed successfully ✅'
-        }
-        failure {
-            echo 'Selenium tests failed ❌'
         }
     }
 }
