@@ -1,4 +1,3 @@
-package com.example;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,13 +8,22 @@ public class App {
 
     public static void main(String[] args) {
 
-        FirefoxOptions options = new FirefoxOptions();
-        options.setBinary("/snap/firefox/current/usr/lib/firefox/firefox");
+FirefoxOptions options = new FirefoxOptions();
 
+// HEADLESS MODE (MANDATORY)
+options.addArguments("--headless");
 
-        WebDriver driver = new FirefoxDriver(options);
+// REQUIRED FOR JENKINS / LINUX
+options.addArguments("--no-sandbox");
+options.addArguments("--disable-dev-shm-usage");
 
-        driver.manage().window().maximize();
+// OPTIONAL BUT SAFE
+options.addArguments("--disable-gpu");
+
+// REMOVE THIS LINE ❌
+// options.setBinary("/snap/firefox/current/usr/lib/firefox/firefox");
+
+WebDriver driver = new FirefoxDriver(options);
 
        
         driver.get("https://www.saucedemo.com/");
